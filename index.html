@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="style.css" />   
+</head>
+<body>
+    <h1>Blackjack</h1>
+
+    <!-- Play button -->
+    <button id="playBtn" onclick="hideButtons()">Play</button>
+
+    <!-- Hit & Stand buttons -->
+    <button id="hitBtn" class="hidden">Hit</button>
+    <button id="standBtn" class="hidden">Stand</button>
+
+    <!-- Hands -->
+    <div class="hand">
+        <h2>Player</h2>
+        <div id="playerHand"></div>
+    </div>
+
+    <div class="hand">
+        <h2>Dealer</h2>
+        <div id="dealerHand"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="game.js"></script>
+
+    <script>
+        function hideButtons(){
+            document.getElementById("hitBtn").classList.remove("hidden");
+            document.getElementById("standBtn").classList.remove("hidden");
+            document.getElementById("playBtn").classList.add("hidden");
+        }
+    </script>
+
+</body>
+</html>
