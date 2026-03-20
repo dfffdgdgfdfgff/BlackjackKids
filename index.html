@@ -8,20 +8,31 @@
     <h1>Blackjack</h1>
 
     <!-- Play button -->
-    <button id="playBtn" onclick="hideButtons()">Play</button>
+    <button id="playBtn">Play</button>
+
+    <!-- Win & Loss messages -->
+     <div class="winDiv" class="hidden">
+        <h2 id="winMsg" class="hidden">You win!</h2>
+        <button id="winReturnBtn" class="hidden">Return</button>
+     </div>
+
+     <div class="lossDiv" class="hidden">
+        <h2 id="lossMsg" class="hidden">You lost!</h2>
+        <button id="lossReturnBtn" class="hidden">Return</button>
+     </div>
 
     <!-- Hit & Stand buttons -->
     <button id="hitBtn" class="hidden">Hit</button>
     <button id="standBtn" class="hidden">Stand</button>
 
     <!-- Hands -->
-    <div class="hand">
-        <h2>Player</h2>
+    <div id="playerHandDiv" class="hand">
+        <h2 id="playerHandAnnounce" class="hidden">Player</h2>
         <div id="playerHand"></div>
     </div>
 
-    <div class="hand">
-        <h2>Dealer</h2>
+    <div id="dealerHandDiv" class="hand">
+        <h2 id="dealerHandAnnounce" class="hidden">Dealer</h2>
         <div id="dealerHand"></div>
     </div>
 
@@ -29,11 +40,7 @@
     <script type="module" src="game.js"></script>
 
     <script>
-        function hideButtons(){
-            document.getElementById("hitBtn").classList.remove("hidden");
-            document.getElementById("standBtn").classList.remove("hidden");
-            document.getElementById("playBtn").classList.add("hidden");
-        }
+
     </script>
 
 </body>

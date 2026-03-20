@@ -5,6 +5,7 @@ const deck = createDeck();
 const playerHand = [];
 const dealerHand = [];
 
+// Drawing & returning cards
 function drawCard(amount, hand) {
     for (let i = 0; i < amount; i++) {
         if (deck.length == 0) return;
@@ -15,6 +16,7 @@ function drawCard(amount, hand) {
     }
 }
 
+// Showcards
 function displayHand(hand, elementId) {
     const container = document.getElementById(elementId);
     container.innerHTML = "";
@@ -29,6 +31,7 @@ function displayHand(hand, elementId) {
     });
 }
 
+// Hit & Stand functions
 function hit(){
     console.log("Player hits");
 
@@ -44,19 +47,30 @@ function hit(){
 
 function stand() {
     console.log("Player stands");
+    document.getElementById("hitBtn").classList.add("hidden");
 
-    while (dealerHand.length < 2) {
-        drawCard(1, dealerHand);
-    }
+    drawCard(1, dealerHand);
 
     displayHand(dealerHand, "dealerHand");
+
+    switch (dealerWinCheck()){
+        case "win":
+            playerWin();
+            return;
+        case "loss":
+            playerLoss();
+            return;
+        case "continue":
+            return;
+    }
 }
 
-function playerHandValue() {
+// Get hand values
+function HandValue(hand) {
     let totalValue = 0;
     let aceCount = 0;
 
-    playerHand.forEach(card => {
+    hand.forEach(card => {
         if (card.name.includes("Ace")) {
             totalValue += 11;
             aceCount++;
@@ -65,7 +79,7 @@ function playerHandValue() {
         }
     });
 
-    // Convert Aces from 11 → 1 if needed
+    // Convert Aces from 11 to 1 if needed
     while (totalValue > 21 && aceCount > 0) {
         totalValue -= 10;
         aceCount--;
@@ -74,37 +88,76 @@ function playerHandValue() {
     return totalValue;
 }
 
+// Value checks
 function playerBustCheck() {
-    return playerHandValue() > 21;
+    return HandValue(playerHand) > 21;
 }
 
 function playerWinCheck() {
-    return playerHandValue() == 21;
+    return HandValue(playerHand) == 21;
 }
 
+function dealerWinCheck() {
+    if (HandValue(dealerHand) > HandValue(playerHand) && HandValue(dealerHand) < 22){
+        return("loss");
+    }
+    if (HandValue(dealerHand) > 21) {
+        return("win");
+    }
+    return("continue");
+}
+
+// Start
 function startGame(){
     drawCard(2, playerHand);
     drawCard(2, dealerHand);
+
+    document.getElementById("playerHandAnnounce").classList.remove("hidden");
+    document.getElementById("dealerHandAnnounce").classList.remove("hidden");
 
     displayHand(playerHand, "playerHand");
     displayHand(dealerHand, "dealerHand");
     if (playerWinCheck()){
         console.log("Blackjack!");
         playerWin();
+        return;
     }
+    showPlayBtns();
 }
 
+// Win & loss cases
 function playerLoss(){
+    document.getElementById("lossMsg").classList.remove("hidden");
+    document.getElementById("lossReturnBtn").classList.remove("hidden");
+    document.getElementById("hitBtn").classList.add("hidden");
+    document.getElementById("standBtn").classList.add("hidden");
     console.log("Bust");
 }
 
 function playerWin(){
+    document.getElementById("winMsg").classList.remove("hidden");
+    document.getElementById("winReturnBtn").classList.remove("hidden");
+    document.getElementById("hitBtn").classList.add("hidden");
+    document.getElementById("standBtn").classList.add("hidden");
     console.log("Win");
 }
 
+function returnToMenu(){
+    window.location.reload()
+}
+
+function showPlayBtns(){
+    document.getElementById("hitBtn").classList.remove("hidden");
+    document.getElementById("standBtn").classList.remove("hidden");
+    document.getElementById("playBtn").classList.add("hidden");
+}
+
+// event listeners
 document.getElementById("hitBtn").addEventListener("click", hit);
 document.getElementById("standBtn").addEventListener("click", stand);
 document.getElementById("playBtn").addEventListener("click", startGame);
+document.getElementById("lossReturnBtn").addEventListener("click", returnToMenu);
+document.getElementById("winReturnBtn").addEventListener("click", returnToMenu);
 
 
 console.log(playerHand);
