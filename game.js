@@ -117,12 +117,13 @@ function startGame(){
 
     displayHand(playerHand, "playerHand");
     displayHand(dealerHand, "dealerHand");
-    if (playerWinCheck()){
+    showPlayBtns();
+
+    if (playerWinCheck()){ // Checks if the player has blackjack
         console.log("Blackjack!");
         playerWin();
         return;
     }
-    showPlayBtns();
 }
 
 // Win & loss cases
@@ -131,6 +132,7 @@ function playerLoss(){
     document.getElementById("lossReturnBtn").classList.remove("hidden");
     document.getElementById("hitBtn").classList.add("hidden");
     document.getElementById("standBtn").classList.add("hidden");
+    
     console.log("Bust");
 }
 
@@ -139,6 +141,7 @@ function playerWin(){
     document.getElementById("winReturnBtn").classList.remove("hidden");
     document.getElementById("hitBtn").classList.add("hidden");
     document.getElementById("standBtn").classList.add("hidden");
+
     console.log("Win");
 }
 
@@ -147,9 +150,14 @@ function returnToMenu(){
 }
 
 function showPlayBtns(){
+    // Buttons
     document.getElementById("hitBtn").classList.remove("hidden");
     document.getElementById("standBtn").classList.remove("hidden");
     document.getElementById("playBtn").classList.add("hidden");
+
+    // Document elements
+    document.body.classList.remove("menu");
+    document.body.classList.add("game");
 }
 
 // event listeners

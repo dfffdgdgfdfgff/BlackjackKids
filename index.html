@@ -4,26 +4,30 @@
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css" />   
 </head>
-<body>
+<body class="menu">
     <h1>Blackjack</h1>
 
     <!-- Play button -->
-    <button id="playBtn">Play</button>
+    <div class="play">
+        <button id="playBtn" class="playButton">Play</button>
+    </div>
 
     <!-- Win & Loss messages -->
-     <div class="winDiv" class="hidden">
+     <div class="resultMessage">
         <h2 id="winMsg" class="hidden">You win!</h2>
         <button id="winReturnBtn" class="hidden">Return</button>
      </div>
 
-     <div class="lossDiv" class="hidden">
+     <div class="resultMessage">
         <h2 id="lossMsg" class="hidden">You lost!</h2>
         <button id="lossReturnBtn" class="hidden">Return</button>
      </div>
 
     <!-- Hit & Stand buttons -->
-    <button id="hitBtn" class="hidden">Hit</button>
-    <button id="standBtn" class="hidden">Stand</button>
+     <div class="hitStandButton">
+        <button id="hitBtn" class="hidden">Hit</button>
+        <button id="standBtn" class="hidden">Stand</button>
+    </div>
 
     <!-- Hands -->
     <div id="playerHandDiv" class="hand">
@@ -38,10 +42,6 @@
 
     <!-- Scripts -->
     <script type="module" src="game.js"></script>
-
-    <script>
-
-    </script>
 
 </body>
 </html>

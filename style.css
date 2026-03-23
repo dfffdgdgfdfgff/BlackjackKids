@@ -7,4 +7,43 @@ h1 {
   color: #333;
   text-align: center;
 }   
-.hidden { display: none; }   
+
+.hidden {
+  display: none; 
+}
+
+.menu {
+  background-color: #167556;
+}
+
+.game {
+  background-color: red;
+}
+
+.playButton {
+  text-align: center;
+}
+
+.playButton {
+  text-align: left;
+  font-size: 30px;
+  background-color: #167556;
+}
+
+.hand {
+  text-align: center;
+}
+
+.hitStandButton {
+  text-align: center;
+}
+
+.resultMessage {
+  color: #333;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.returnButton {
+  text-align: center;
+}
