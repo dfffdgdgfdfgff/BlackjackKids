@@ -1,3 +1,4 @@
+// Create card deck
 import { createDeck } from "./deck.js";
 
 const deck = createDeck();
@@ -37,10 +38,10 @@ function hit(){
 
     drawCard(1, playerHand);
     displayHand(playerHand, "playerHand");
-    if (playerBustCheck()){
+    if (playerBustCheck()) {
         playerLoss();
     }
-    if (playerWinCheck()){
+    if (playerWinCheck()) {
         playerWin();
     }
 }
@@ -53,7 +54,7 @@ function stand() {
 
     displayHand(dealerHand, "dealerHand");
 
-    switch (dealerWinCheck()){
+    switch (dealerWinCheck()) {
         case "win":
             playerWin();
             return;
@@ -108,7 +109,7 @@ function dealerWinCheck() {
 }
 
 // Start
-function startGame(){
+function startGame() {
     drawCard(2, playerHand);
     drawCard(2, dealerHand);
 
@@ -119,9 +120,18 @@ function startGame(){
     displayHand(dealerHand, "dealerHand");
     showPlayBtns();
 
-    if (playerWinCheck()){ // Checks if the player has blackjack
+    if (playerWinCheck() && totalValue(dealerHand) == 21) {
+        console.log("Pushed!")
+        playerWin();
+    }
+    if (playerWinCheck()) { // Checks if the player has blackjack
         console.log("Blackjack!");
         playerWin();
+        return;
+    }
+    if (totalValue(dealerHand) == 21) {
+        console.log("Dealer had blackjack");
+        playerLoss();
         return;
     }
 }
