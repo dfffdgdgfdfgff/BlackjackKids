@@ -6,6 +6,7 @@ body {
 h1 {
   color: #333;
   text-align: center;
+  display: block;
 }   
 
 .hidden {
@@ -13,11 +14,15 @@ h1 {
 }
 
 .menu {
+  background-image: url("img/baseBackground.png");
   background-color: #167556;
 }
 
 .game {
-  background-color: red;
+  background-image: url("img/gameBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgb(40, 119, 60);
 }
 
 .playButton {

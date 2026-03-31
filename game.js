@@ -32,6 +32,35 @@ function displayHand(hand, elementId) {
     });
 }
 
+function displayDealer(instance) {
+    const container = document.getElementById("dealerHand");
+    container.innerHTML = "";
+
+    switch(instance) {
+        case "all":
+            dealerHand.forEach(card => {
+            const img = document.createElement("img");
+            img.src = card.image;
+            img.style.width = "100px";
+            img.style.margin = "5px";
+
+            container.appendChild(img);
+            return;
+        });
+        case "one":
+            card = dealerHand[0]
+            const img = document.createElement("img");
+            img.src = card.image;
+            img.style.width = "100px";
+            img.style.margin = "5px";
+            container.appendChild(img);
+
+            const backcard = document.createElement("img");
+            img.src = "cards/back.png"
+            return;
+    }
+}
+
 // Hit & Stand functions
 function hit(){
     console.log("Player hits");
@@ -48,22 +77,32 @@ function hit(){
 
 function stand() {
     console.log("Player stands");
+
     document.getElementById("hitBtn").classList.add("hidden");
+    document.getElementById("standBtn").classList.add("hidden");
 
-    drawCard(1, dealerHand);
+    dealerHit();
+}
 
-    displayHand(dealerHand, "dealerHand");
+function dealerHit() {    
+    setTimeout(function(){
+        drawCard(1, dealerHand);
 
-    switch (dealerWinCheck()) {
-        case "win":
-            playerWin();
-            return;
-        case "loss":
-            playerLoss();
-            return;
-        case "continue":
-            return;
-    }
+        displayHand(dealerHand, "dealerHand");
+
+        switch (dealerWinCheck()) {
+            case "win":
+                playerWin();
+                return;
+            case "loss":
+                playerLoss();
+                return;
+            case "continue":
+                dealerHit();
+                return;
+        
+        }
+    }, 2000);
 }
 
 // Get hand values
@@ -120,17 +159,18 @@ function startGame() {
     displayHand(dealerHand, "dealerHand");
     showPlayBtns();
 
-    if (playerWinCheck() && totalValue(dealerHand) == 21) {
+    if (playerWinCheck() && HandValue(dealerHand) == 21) {
         console.log("Pushed!")
         playerWin();
+        return;
     }
     if (playerWinCheck()) { // Checks if the player has blackjack
         console.log("Blackjack!");
         playerWin();
         return;
     }
-    if (totalValue(dealerHand) == 21) {
-        console.log("Dealer had blackjack");
+    if (HandValue(dealerHand) == 21) {
+        console.log("Dealer has blackjack");
         playerLoss();
         return;
     }
@@ -138,6 +178,7 @@ function startGame() {
 
 // Win & loss cases
 function playerLoss(){
+    document.getElementById("lossMsg")
     document.getElementById("lossMsg").classList.remove("hidden");
     document.getElementById("lossReturnBtn").classList.remove("hidden");
     document.getElementById("hitBtn").classList.add("hidden");
