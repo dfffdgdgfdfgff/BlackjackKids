@@ -164,6 +164,16 @@ function dealerWinCheck() {
     return("continue");
 }
 
+function dealerBlackjackCheck() {
+    const firstCard = dealerHand[0];
+
+    if (firstCard.value == 10 || firstCard.name.includes("Ace")) {
+        return HandValue(dealerHand) == 21;
+    }
+
+    return false;
+}
+
 // Start
 function startGame() {
     drawCard(2, playerHand);
@@ -183,7 +193,7 @@ function startGame() {
         playerWin();
         return;
     }
-    if (HandValue(dealerHand) == 21) {
+    if (dealerBlackjackCheck()) {
         console.log("Dealer has blackjack");
         playerLoss();
         return;
